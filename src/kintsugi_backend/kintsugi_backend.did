@@ -1,3 +1,18 @@
 service : {
-    "greet": (text) -> (text) query;
+  # A function to create a report
+  create_report : (text, text, text, text) -> (nat);
+
+  # A function to get a report by ID
+  get_report : (nat) -> (opt Report);
+
+  # A function to fetch all reports
+  fetch_reports : () -> (vec Report);
 }
+
+type Report = record {
+  id : nat;
+  incident_type : text;
+  description : text;
+  date : text;
+  location : text;
+};
