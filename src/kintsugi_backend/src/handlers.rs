@@ -1,11 +1,16 @@
-use crate::models::Report; // Use the Report struct from the models module
+use crate::models::Report;
 use crate::storage::{add_report, fetch_reports, get_report};
 use ic_cdk_macros::*;
+use candid::Nat;
+use crate::storage::REPORTS;
+use crate::storage::{update_report as storage_update_report, delete_report as storage_delete_report};
+use num_traits::ToPrimitive;
+use num_bigint::BigUint;
 
 #[update]
-fn create_report(incident_type: String, description: String, date: String, location: String) -> u64 {
+fn create_report(incident_type: String, description: String, date: String, location: String) -> Nat {
     let report = Report {
-        id: 0, // This will be set in storage (and updated to a unique ID)
+        id: Nat::from(0u64), // Initialize with Nat
         incident_type,
         description,
         date,
@@ -15,7 +20,7 @@ fn create_report(incident_type: String, description: String, date: String, locat
 }
 
 #[query]
-fn get_report_handler(id: u64) -> Option<Report> {
+fn get_report_handler(id: Nat) -> Option<Report> {
     get_report(id)
 }
 
@@ -23,3 +28,64 @@ fn get_report_handler(id: u64) -> Option<Report> {
 fn fetch_reports_handler() -> Vec<Report> {
     fetch_reports()
 }
+
+#[update]
+fn update_report(id: Nat, incident_type: String, description: String, date: String, location: String) -> Result<(), String> {
+    let id_biguint = id.0; // Get the internal representation of Nat
+    let id_u64 = id_biguint.to_u64().ok_or("Failed to convert ID")?; // Convert BigUint to u64
+    storage_update_report(id_u64, incident_type, description, date, location);
+    Ok(())
+}
+
+#[update]
+fn delete_report(id: Nat) -> Result<(), String> {
+    let id_biguint = id.0; // Get the internal representation of Nat
+    let id_u64 = id_biguint.to_u64().ok_or("Failed to convert ID")?; // Convert BigUint to u64
+    if storage_delete_report(id_u64) {
+        Ok(())
+    } else {
+        Err("Failed to delete report".into())
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
