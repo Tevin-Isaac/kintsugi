@@ -1,16 +1,684 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IC Hello Starter</title>
+    <title>Safe Haven: Your Trusted GBV Reporting Platform</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="indexs.js" type="module"></script>
+
+
+<style>
+  :root {
+    --mardi-gras: #861673ff;
+    --plum: #9F4090ff;
+    --yinmn-blue: #3B5999ff;
+    --black: #010101ff;
+    --white: #FFFFFFff;
+    --button-blue: #4A90E2;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--black);
+    background-color: var(--white);
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .hero {
+    background-image: linear-gradient(rgba(134, 22, 115, 0.8), rgba(159, 64, 144, 0.8)), url('./back.png');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--white);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--white);
+    max-width: 700px;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  }
+
+  nav {
+    background-color: var(--white);
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  nav.scrolled {
+    padding: 0.5rem 0;
+  }
+
+  nav ul {
+    display: flex;
+    list-style-type: none;
+  }
+
+  nav ul li {
+    margin-left: 1.5rem;
+  }
+
+  nav ul li a {
+    color: var(--mardi-gras);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+  }
+
+  nav ul li a:hover {
+    color: var(--plum);
+  }
+
+  .button {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .button-primary {
+    background-color: var(--button-blue);
+    color: var(--white);
+  }
+
+  .button-primary:hover {
+    background-color: #3A7BC8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  }
+
+  .button-danger {
+    background-color: var(--button-blue);
+    color: var(--white);
+  }
+
+  .button-danger:hover {
+    background-color: #3A7BC8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  }
+
+  .section {
+    padding: 6rem 0;
+  }
+
+  .section-title {
+    text-align: center;
+    color: var(--mardi-gras);
+    margin-bottom: 3rem;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+  }
+
+  .feature-card {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+  }
+
+  .feature-card i {
+    font-size: 3rem;
+    color: var(--mardi-gras);
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3 {
+    color: var(--plum);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .feature-card p {
+    font-size: 1rem;
+    color: var(--black);
+  }
+
+  .trust-grid {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+    text-align: center;
+  }
+
+  .trust-item i {
+    font-size: 3rem;
+    color: var(--mardi-gras);
+    margin-bottom: 1rem;
+  }
+
+  .trust-item h3 {
+    color: var(--plum);
+    margin-bottom: 0.5rem;
+  }
+
+  .stories-section {
+    background-color: var(--white);
+  }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .testimonial-card {
+    background-color: rgba(159, 64, 144, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  }
+
+  .testimonial-content {
+    flex-grow: 1;
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-content p {
+    font-style: italic;
+    color: var(--black);
+    line-height: 1.6;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+  }
+
+  .testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 1rem;
+    object-fit: cover;
+  }
+
+  .testimonial-info h4 {
+    color: var(--mardi-gras);
+    margin-bottom: 0.2rem;
+  }
+
+  .testimonial-info p {
+    font-size: 0.9rem;
+    color: var(--black);
+  }
+
+  footer {
+    background-color: var(--mardi-gras);
+    color: var(--white);
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .exit-button {
+    background-color: var(--button-blue);
+    color: var(--white);
+    border: 2px solid var(--button-blue);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .exit-button:hover {
+    background-color: #3A7BC8;
+    border-color: #3A7BC8;
+    color: var(--white);
+  }
+
+  .chatbot-container {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    height: 500px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .chatbot-header {
+    background-color: var(--mardi-gras);
+    color: var(--white);
+    padding: 15px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+
+  .chatbot-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #eee;
+  }
+
+  .chatbot-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+  }
+
+  .chatbot-input button {
+    background-color: var(--button-blue);
+    color: var(--white);
+    border: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .chatbot-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--button-blue);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1001;
+    transition: all 0.3s ease;
+  }
+
+  .chatbot-toggle:hover {
+    background-color: #3A7BC8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+
+  .chatbot-toggle i {
+    margin-right: 8px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .statistics-section {
+    background-color: var(--white);
+  }
+
+  .statistics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .statistic-card {
+    background-color: rgba(159, 64, 144, 0.1);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+  }
+
+  .statistic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  }
+
+  .statistic-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--mardi-gras);
+    margin-bottom: 0.5rem;
+  }
+
+  .statistic-label {
+    font-size: 1.2rem;
+    color: var(--plum);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--mardi-gras);
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .logo img {
+    height: 40px;
+    margin-right: 10px;
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      width: 95%;
+    }
+
+    .nav-menu {
+      display: none;
+    }
+
+    .exit-button {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+    }
+
+    .chatbot-container {
+      width: 100%;
+      height: 100%;
+      bottom: 0;
+      right: 0;
+      border-radius: 0;
+    }
+
+    .chatbot-toggle {
+      bottom: 20px;
+      right: 20px;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+    }
+
+    .logo img {
+      height: 30px;
+    }
+  }
+</style>
 </head>
-
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.js"></script>
-</body>
+  <nav id="mainNav">
+    <div class="container">
+      <div class="nav-container">
+        <a href="/home" class="logo">
+          <img src="./logo.png" alt="Safe Haven Logo" width="40" height="40">
+          Safe Haven
+        </a>
+        <div class="nav-menu">
+          <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/form.html">Report</a></li>
+            <li><a href="#resources">Resources</a></li>
+            <li><a href="#stories">Stories</a></li>
+            <li><a href="#statistics">Statistics</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <a href="https://www.weather.com" class="exit-button" id="exitButton">Quick Exit</a>
+        </div>
+      </div>
+    </div>
+  </nav>
 
+  <header class="hero" id="home">
+    <div class="container">
+      <h1>Safe Haven: Your Trusted Space</h1>
+      <p>We believe you. Your safety and well-being are our top priority. Report with confidence, knowing you're protected every step of the way.</p>
+      <button id="btn-form" class="button button-primary" type="button">Safely Report an Incident</button>
+      <!-- <a href="./src/kintsugi_frontend/form.html" class="button button-primary">Safely Report an Incident</a> -->
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="features">
+      <div class="container">
+        <h2 class="section-title">How We Keep You Safe</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <i class="fas fa-user-secret" aria-hidden="true"></i>
+            <h3>100% Anonymous Reporting</h3>
+            <p>Your identity is completely protected. Report without fear, knowing your privacy is our utmost concern.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-shield-alt" aria-hidden="true"></i>
+            <h3>Advanced Encryption</h3>
+            <p>State-of-the-art blockchain technology ensures your data remains secure and tamper-proof.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-headset" aria-hidden="true"></i>
+            <h3>24/7 Support &amp; Counseling</h3>
+            <p>Our trained professionals are here for you around the clock, providing emotional support and guidance.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-hands-helping" aria-hidden="true"></i>
+            <h3>Comprehensive Resources</h3>
+            <p>Access a wide range of support services, from legal aid to safe shelters, all in one place.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-chart-line" aria-hidden="true"></i>
+            <h3>Transparent Case Tracking</h3>
+            <p>Stay informed about your case progress with our secure, anonymous tracking system.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-globe" aria-hidden="true"></i>
+            <h3>Multilingual Platform</h3>
+            <p>Break language barriers with our platform available in multiple languages, ensuring help for all.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section stories-section" id="stories">
+      <div class="container">
+        <h2 class="section-title">Stories of Hope</h2>
+        <div class="testimonial-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>"I never thought I'd find the courage to speak up. Thanks to Safe Haven's anonymous reporting, I took the first step towards freedom. The support I received was life-changing. Now, I'm rebuilding my life with confidence and hope."</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="" alt="Sarah's avatar" class="testimonial-avatar" width="50" height="50">
+              <div class="testimonial-info">
+                <h4>Sarah M.</h4>
+                <p>Survivor &amp; Advocate</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>"As a male survivor, I felt alone and misunderstood. Safe Haven provided me with resources and a community that helped me reclaim my life. I'm now an advocate for other survivors, breaking the stigma surrounding male victims of abuse."</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="" alt="David's avatar" class="testimonial-avatar" width="50" height="50">
+              <div class="testimonial-info">
+                <h4>David K.</h4>
+                <p>Survivor &amp; Mentor</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>"The legal support I received through Safe Haven was instrumental in my case. Today, I stand strong, knowing justice has been served. This platform truly saves lives. I'm grateful for the chance to start anew and help others do the same."</p>
+            </div>
+            <div class="testimonial-author">
+              <img src="" alt="Maria's avatar" class="testimonial-avatar" width="50" height="50">
+              <div class="testimonial-info">
+                <h4>Maria L.</h4>
+                <p>Survivor &amp; Legal Advocate</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section statistics-section" id="statistics">
+      <div class="container">
+        <h2 class="section-title">Our Impact</h2>
+        <div class="statistics-grid">
+          <div class="statistic-card">
+            <div class="statistic-number">10,000+</div>
+            <div class="statistic-label">Cases Reported</div>
+          </div>
+          <div class="statistic-card">
+            <div class="statistic-number">95%</div>
+            <div class="statistic-label">User Satisfaction</div>
+          </div>
+          <div class="statistic-card">
+            <div class="statistic-number">24/7</div>
+            <div class="statistic-label">Support Provided</div>
+          </div>
+          <div class="statistic-card">
+            <div class="statistic-number">5,000+</div>
+            <div class="statistic-label">Survivors Supported</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="trust">
+      <div class="container">
+        <h2 class="section-title">Why You Can Trust Us</h2>
+        <div class="trust-grid">
+          <div class="trust-item">
+            <i class="fas fa-lock" aria-hidden="true"></i>
+            <h3>Data Protection Certified</h3>
+            <p>Your information is safeguarded by international data protection standards.</p>
+          </div>
+          <div class="trust-item">
+            <i class="fas fa-award" aria-hidden="true"></i>
+            <h3>Recognized by WHO</h3>
+            <p>Our platform is acknowledged by the World Health Organization for its effectiveness.</p>
+          </div>
+          <div class="trust-item">
+            <i class="fas fa-users" aria-hidden="true"></i>
+            <h3>Community Trusted</h3>
+            <p>Join thousands who have found safety and support through our platform.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Safe Haven GBV Reporting Platform. You are not alone. We are here for you.</p>
+    </div>
+  </footer>
+
+  <!-- Chatbot -->
+  <div class="chatbot-toggle" id="chatbotToggle">
+    <i class="fas fa-comments" aria-hidden="true"></i>
+    Let's Talk
+  </div>
+
+  <div class="chatbot-container hidden" id="chatbotContainer">
+    <div class="chatbot-header">
+      <span>Safe Haven Assistant</span>
+      <i class="fas fa-times" id="chatbotClose" aria-hidden="true"></i>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages"></div>
+    <div class="chatbot-input">
+      <input type="text" id="chatbotInput" placeholder="Type your message...">
+      <button id="chatbotSend">Send</button>
+    </div>
+  </div>
+
+
+</body>
 </html>
