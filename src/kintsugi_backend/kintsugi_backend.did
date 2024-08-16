@@ -1,13 +1,4 @@
-service : {
-  # A function to create a report
-  create_report : (text, text, text, text) -> (nat);
-
-  # A function to get a report by ID
-  get_report : (nat) -> (opt Report);
-
-  # A function to fetch all reports
-  fetch_reports : () -> (vec Report);
-}
+type Result = variant { Ok : null; Err : text };
 
 type Report = record {
   id : nat;
@@ -15,4 +6,12 @@ type Report = record {
   description : text;
   date : text;
   location : text;
+};
+
+service : {
+  create_report : (text, text, text, text) -> (nat);
+  get_report_handler : (nat) -> (opt Report);
+  fetch_reports_handler : () -> (vec Report);
+  update_report : (nat, text, text, text, text) -> (Result);
+  delete_report : (nat) -> (Result);
 };
