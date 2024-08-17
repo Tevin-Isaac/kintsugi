@@ -105,8 +105,36 @@ chatbotInput.addEventListener('keypress', (e) => {
 // Initial bot message
 addMessage("Hello, I'm here to assist you. How can I help you today?");
 
-// document.getElementById('btn-form').addEventListener('click', (e) => {
-//     e.preventDefault();
-//     window.location.href = './form.html';
-//   });
+const safelyReportButton = document.getElementById('btn-form');
+const formOverlay = document.getElementById('formOverlay');
+const closeFormButton = document.getElementById('closeFormButton');
+const incidentForm = document.getElementById('reportForm');
 
+function showForm() {
+   formOverlay.style.visibility = "visible";
+}
+
+function hideForm() {
+    formOverlay.style.visibility = "hidden";
+ }
+ 
+safelyReportButton.addEventListener('click', showForm);
+
+closeFormButton.addEventListener('click', hideForm);
+
+
+// Close the form when clicking outside the form container
+formOverlay.addEventListener('click', function(e) {
+    if (e.target === formOverlay) {
+        hideForm();
+    }
+});
+
+// Handle form submission
+incidentForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Add your form submission logic here
+    console.log('Form submitted');
+    alert('Thank you for reporting the incident. We will review your report and take appropriate action.');
+    hideForm();
+});
